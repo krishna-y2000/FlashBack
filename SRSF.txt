@@ -1,0 +1,14 @@
+Task :
+    • Authentication
+    • File upload 
+    • Insert Blog
+    • Load Balancing
+    • Attendance Details
+    • Future Topic  and Past Topic
+
+Done :
+    1) Authentication
+    2) File Upload
+    3) Insert Blog
+    4) Load Balancing
+    

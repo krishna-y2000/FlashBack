@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+  <body>
+  
+    <h1><%= title %></h1>
+    <h3>App running on <%= PORT %></h3>
+    <button type ="button" onclick="location.href = 'user/signup'" >Registration</button> 
+    <button type ="button" onclick="location.href = 'user/login'" value = "Login">Login</button> 
+    <button type ="button" onclick="location.href = '/uploads'" value = "uploadFile">uploadFile</button> 
+    <button type ="button" onclick="location.href = '/getfiles'" value = "getFiles">getFile</button> 
+    <button type = "button" onclick="location.href = '/uploads/articles'" value = "articles" > Articles </button>
+
+  </body>
+</html>
