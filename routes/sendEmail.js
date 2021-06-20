@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const { type } = require("os");
-
-router.get('/newEmail',(req,res) => {
-    res.render('emailMessage')
+const auth = require('../middleware/auth' );
+router.get('/newEmail',auth , (req,res) => {
+    res.render('emailMessage' ,  { isAuthenticated :req.user ? true : false } ) ;
 } )
 
 router.post("/sendEmail" ,async (req,res) => {
