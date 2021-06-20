@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("partials/header", {isAuthenticated}) -%>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
-integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<title>Mongo File Upload</title>
-	<link rel='stylesheet' href='stylesheets/style.css' />
-</head>
-
-<body>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 m-auto">
 				<h1 class="my-4"><%= titleHead %> </h1>
 
 				<form action="/uploads/uploadedFiles" method="post" enctype="multipart/form-data">
@@ -24,56 +10,9 @@ integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ
 					</div>
 					<input type="submit" value="Submit" class="btn btn-primary btn-block">
 				</form>
-
-				<form action="uploads/getblog" method = "post">
-					<div class="mb-3">
-						<input type = "text" id="blog-id" name = "blog"  />
-						<button type ="submit" name="submit" id="submitblog-id"class="btn btn-primary" >Submit</button>
-					</div>
-				</form>
-
-				<% if(files) { %>
-					<% files.forEach(function(file) {%>
-					<div class="card mb-3">
-						<div class="card-header">
-							<div class="card-title">
-									<%= file.filename %>
-							</div>
-						</div>
-						<div class="card-body">
-							<% if (file.isImage) { %>
-						<img src="uploads/image/<%= file.filename %>" width="250" alt="" class="img-responsive">
-							<%} else { %>
-							<p><% file.filename %></p>
-							<% } %>
-						</div>
-						<div class="card-footer">
-							<form action="uploads/files/del/<%= file._id %>" method="post">
-								<button type="submit" class="btn btn-danger">Remove</button>
-							</form>
-							<form action="uploads/files/download/<%= file.filename %>" method="post">
-								<button type="submit" class="btn btn-danger">Download</button>
-							</form>
-						</div>
-					</div>
-					<%}) %>
-					<% } else { %>
-					<p>No files to show</p>
-					<% } %>
-			</div>
-		</div>
+				<br></br>
 	</div>
 
-	<script>
-		function readSingleFile(e) {
-			const name = e[0].name;
-			document.getElementById("file-label").textContent = name;
-		}
-		// function changeText() {
-		// 	document.getElementById("").textContent = name;
-		// }
-	</script>
-</body>
+<%- include("partials/footer") -%>
 
-</html>
 

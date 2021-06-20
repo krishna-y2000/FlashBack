@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const GridFsStorage = require('multer-gridfs-storage')
 const promise = require('promise');
 const multer = require("multer") ;
+const auth = require('../middleware/auth');
 const MONGOURI = "mongodb+srv://dbKrishna:Kri75676@cluster0-9vtky.mongodb.net/uploaded-files?retryWrites=true&w=majority";
 const conn = mongoose.createConnection(MONGOURI, {useNewUrlParser : true, useUnifiedTopology:true})
 let gfg ;
@@ -21,7 +22,7 @@ let gfg ;
     }
 
 } )
-router.get('/',(req,res) => {
+router.get('/',auth ,(req,res) => {
     
     // res.render("../views/upload", {titleHead : "Lets Upload Files"} );
  
@@ -33,7 +34,7 @@ router.get('/',(req,res) => {
      gfg.find().toArray((err,files) => {
          if(!files || files.length === 0 )
          {
-             res.render('/home/krishnaraj/Desktop/ME-2 (copy)/views/getFiles.ejs', {files : false})
+             res.render('getFiles.ejs', {files : false})
          }
          else
          {
@@ -51,9 +52,10 @@ router.get('/',(req,res) => {
                  } )
                 
  
-             return res.render('/home/krishnaraj/Desktop/ME-2 (copy)/views/getFiles.ejs', {
+             return res.render('getFiles.ejs', {
                  files : checkFile,
-                  titleHead : "Lets Get Files"
+                  titleHead : "Lets Get Files",
+                  isAuthenticated : req.user ? true : false 
                } )
          }
      } )

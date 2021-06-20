@@ -1,22 +1,25 @@
 const jwt = require('jsonwebtoken');
 
 const authSend = function(req,res,next){
-    const token = req.header("token");
+  //const token = req.cookies.token;
+  const token = req.cookies.token;
+  console.log("Token" , req.cookies.token);
     if(!token)
     {
-        return res.status(401).json({
-            message :"Auth Error"
-        })
+      console.log("No token");
+       return next();
     }
-    
-    try {
-        const decoded = jwt.verify(token, "randomString");
-        req.user = decoded.user;
-        next();
-      } catch (e) {
-        console.error(e);
-        res.status(500).send({ message: "Invalid Token" });
+    console.log("Got token");
+
+    jwt.verify(token, "randomString", (err, payload) => {
+  
+      if (err || !payload) {
+        return next();
       }
+         req.user = payload.user;
+        // console.log("reqUser" , req.user);
+        next();
+      });
 }
 
 

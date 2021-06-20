@@ -5,35 +5,32 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var User = require("../config/model/User");
 var auth = require('../middleware/auth');
+var cookie = require('cookies');
 /* GET users listing. */
 router.get('/signup', function(req, res, next) {
-  var title = "MY REGISTRATION PAGE"
-  res.render("../views/authentication/signup.ejs",{title : title});
+  var titleSignup = "MY REGISTRATION PAGE"
+  res.render("../views/authentication/signup.ejs",{title : titleSignup , error : ''});
 });
-router.get('/login', function(req,res,next) {
+router.get('/login',auth , function(req,res,next) {
   var titleLogin = "Login Page"
-  res.render("../views/authentication/login.ejs",{title : titleLogin})
+  res.render("../views/authentication/login.ejs",{title : titleLogin , error : '' })
 } )
-router.post('/signup',[check("username","Enter valid username").not().isEmpty(),
+router.post('/signup',auth , [check("username","Enter valid username").not().isEmpty(),
        check("email","Please enter valid email-id").isEmail(),
        check("password","Enter valid password").isLength({min:8}) ],
           async (req,res,next) =>{
             const errors = validationResult(req);
             if(!errors.isEmpty())
             {
-              return res.status(400).json({
-                errors : errors.array()
-              })
+              return res.render("../views/authentication/signup.ejs" , {error : 'Please fill the password' })
             }
             const {username,email,password} = req.body; 
             try 
             {
               let user = await User.findOne({email})
               if(user)
-              {
-                return res.status(400).json({
-                  message : "User already exist"
-                })
+              {         
+                return res.render("../views/authentication/signup.ejs" , {error : 'User already exist' })
 
               }
               // const hash = bcrypt.hashSync(req.body.password, 10);
@@ -77,7 +74,7 @@ router.post('/signup',[check("username","Enter valid username").not().isEmpty(),
                 })
                 
                  
-                  user.save();
+                 user.save( (req,res) => { console.log("Saved ");} );
                   
               });
               
@@ -90,19 +87,21 @@ router.post('/signup',[check("username","Enter valid username").not().isEmpty(),
           // };
 
 
-            jwt.sign({id : "user._id"},"randomString",{expiresIn : 10000}, (err,token) => {
+            jwt.sign({ _id : "user._id"},"randomString", async (err,token) => {
               if(err)
                 {
                   throw err;
                 }
-              res.status(200).send("You are Successfully Registered");
+                 res.cookie('token' , token);
+               console.log("cookieSign" , req.cookies.token);
+              return res.status(200).redirect('/');
             })
           }
               catch(err)
               {
                   console.log(err);
-                  res.status(500).send("Error in saving the account details");
-                 
+                  res.render("../views/authentication/signup.ejs" , {error : 'Error in saving the account details' })
+
               }
 
           } 
@@ -110,64 +109,65 @@ router.post('/signup',[check("username","Enter valid username").not().isEmpty(),
 
 
 
-router.post('/login',[check("email", "Please enter a valid email").isEmail(),
-  check("password", "Please enter a valid password").isLength({
-    min: 6
-  })  ],
-   async (req,res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array()
-      });
-    }
-    const {email,password} = req.body;
-    try 
-    {
-      let user = await User.findOne({email})
-      if(!user)
-      {
-        return res.status(400).json({
-          message : "User not exist"
-        })
-
-      }
-      const match = await bcrypt.compare(password, user.password);
-      console.log(match);
-      if(!match) {
-          return res.status(400).json({
-            message : "Incorrect password"
-          })
-          
-        }
-       
-      const payload = 
-        {
-          user: {
-            id: user.id
-           }
-        };
-        jwt.sign(payload,"randomString",{expiresIn : 3600}, (err,token) =>
+router.post('/login',auth ,[check("email", "Please enter a valid email").isEmail(),
+       check("password", "Please enter a valid password").isLength({
+         min: 6
+       })  ],
+        async (req,res) => {
+         const errors = validationResult(req);
+     
+         if (!errors.isEmpty()) {
+           return res.status(400).json({
+             errors: errors.array()
+           });
+         }
+         const {email,password} = req.body;
+         try 
          {
-            if(err)
+           let user = await User.findOne({email})
+           if(!user)
+           {
+             return res.status(400).json({
+               message : "User not exist"
+             })
+     
+           }
+           const match = await bcrypt.compare(password, user.password);
+           console.log(match);
+           if(!match) {
+               return res.status(400).json({
+                 message : "Incorrect password"
+               })
+               
+             }
+            
+           const payload = 
+             {
+               user: {
+                 id: user.id
+                }
+             };
+             jwt.sign(payload,"randomString", (err,token) =>
               {
-                throw err;
-              }
-            res.status(200).send("You have Successfully Logged In")
-         })
-
-     }
-     catch (e) 
-     {
-      console.error(e);
-      res.status(500).json({
-        message: "Server Error"
-      });
-    }
-  } 
-)
-
+                 if(err)
+                   {
+                     throw err;
+                   }
+                 res.cookie('token' , token);
+                 res.status(200).redirect('/');
+              })
+     
+          }
+          catch (e) 
+          {
+           console.error(e);
+           res.status(500).json({
+             message: "Server Error"
+           });
+         }
+       } 
+     )
+     
 router.get("/me", auth, async (req, res) => 
   {
     try
@@ -183,4 +183,9 @@ router.get("/me", auth, async (req, res) =>
   }
 );
 
+
+router.post('/logout',auth ,async(req,res) => {
+  res.clearCookie("token");
+  return res.redirect("/");
+} )
 module.exports = router;

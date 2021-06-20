@@ -13,11 +13,6 @@ const articleSchema = mongoose.Schema({
         required : true,
         minlength : 1
     },
-    markdown: {
-        type : String,
-        required : true,
-        minlength : 1
-    },
     createdAt: {
         type : Date,
         default : Date.now()

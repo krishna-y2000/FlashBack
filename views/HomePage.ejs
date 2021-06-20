@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  </head>
-  <body>
+<%- include("partials/header", {isAuthenticated}) -%>
   
-    <h1><%= title %></h1>
-    <h3>App running on <%= PORT %></h3>
-    <button type ="button" onclick="location.href = 'user/signup'" >Registration</button> 
-    <button type ="button" onclick="location.href = 'user/login'" value = "Login">Login</button> 
-    <button type ="button" onclick="location.href = '/uploads'" value = "uploadFile">uploadFile</button> 
-    <button type ="button" onclick="location.href = '/getfiles'" value = "getFiles">getFile</button> 
+<div class="container">
+  <h2 class="normal-heading-font heading" style="font-weight:600;">Hi there!</h2>
+  <h1><%= title %></h1>
+  <button type ="button" onclick="location.href = '/uploads'" value = "uploadFile">uploadFile</button> 
+  <button type ="button" onclick="location.href = '/getfiles'" value = "getFiles">getFile</button>
+  <% if(isAuthenticated) {%>
     <button type = "button" onclick="location.href = '/uploads/articles'" value = "articles" > Articles </button>
+  <% } %>
+  <div class="col-lg-3 col-sm-12 d-flex flex-column align-items-center">
+    <h3 class="normal-heading-font" style="font-weight:600;">Anything New?</h3>
+    <a href="/uploads/articles/new-article"><button class="button  pen">Compose</button></a>
+  </div>
+  <div my-3>  
+    <% if(posts.length){ %>
+      <%- include("posts", {posts}) -%>
+    <% } else {%>
+      <p class="mx-auto text-center text-danger">No Blogs Found...</p> 
+      <% } %>
+  </div>
+</div>
+<%- include("partials/footer") -%>
 
-  </body>
-</html>

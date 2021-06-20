@@ -1,0 +1,19 @@
+1) Not properly implementing/putting catch block or error not handled properly, it throws warning
+ UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function 
+ without a catch block, or by rejecting a promise which was not handled with .catch() .
+ Solution : write try/catch block properly
+ Code : try{ ...}
+         catch(err){...}
+         
+2) Problem of multiple server running at same time on same port
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+Solution :
+ 1) sudo lsof -i :3000 // get which process running on port 3000
+ 2) kill -9 {PID}
+
+         
+3) Calling markdown input in backend even if it removed from frontend . I want to remove the markdown input 
+Error:  Article validation failed: markdown: Path `markdown` is required.
+Solution : Remove the markdown field from the model and the code which is trying to access the markdown.
+
+4) 

@@ -1,0 +1,33 @@
+	<% if(files) { %>
+					<% files.forEach(function(file) {%>
+						
+							<div class="row">
+
+							<% if (file.isImage) { %>
+							<div class="col-lg-4 col-md-6 mb-4 mb-lg-0"></div>
+							<div class=" imgbackground">
+								<img
+									src="uploads/image/<%= file.filename %>"
+									class="w-100 shadow-1-strong rounded mb-4 img-responsive " alt=""/>
+								<form action="uploads/files/del/<%= file._id %>" method="post">
+									<button type="submit" class="btn btn-danger padButtonFiles">Remove</button>
+								</form>
+								<br>
+								<form action="uploads/files/download/<%= file.filename %>" method="post">
+									<button type="submit" class="btn btn-primary align-left padButtonFiles">Download</button>
+								</form>
+							</div>
+							</div>
+							<%} else { %>
+									<!-- 	<p><% file.filename %></p> -->
+							<% } %>
+						</div>
+		
+					
+				    
+					<%}) %>
+					
+					<% } else { %>
+					<p>No files to show</p>
+					<% } %>
+				
