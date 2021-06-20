@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const MONGOURI = "mongodb+srv://dbKrishna:Kri75676@cluster0-9vtky.mongodb.net/jwt-authentication?retryWrites=true&w=majority";
-
+const dotenv = require("dotenv");
+dotenv.config({path : './config.env'});
 const connectMongo = async () => {
     try{
-       await mongoose.connect(MONGOURI,{useNewUrlParser: true, useUnifiedTopology: true});
+       await mongoose.connect( process.env.MONGOURI,{useNewUrlParser: true, useUnifiedTopology: true});
         console.log("DB connected");
     }
     catch(e)

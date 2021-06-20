@@ -4,17 +4,18 @@ const router = express.Router();
 const fs = require('fs');
 const { type } = require("os");
 const auth = require('../middleware/auth' );
+const dotenv = require("dotenv");
+dotenv.config({path : './config.env'});
 router.get('/newEmail',auth , (req,res) => {
     res.render('emailMessage' ,  { isAuthenticated :req.user ? true : false } ) ;
 } )
 
 router.post("/sendEmail" ,async (req,res) => {
-
     const transporter = nodemailer.createTransport({
         service : "gmail",
         auth : {
             user : "krishnay.75676@gmail.com",
-            pass : "rajyadav75676"
+            pass : process.env.PASSWORD
         },
         tls : {
             rejectUnauthorized : false
