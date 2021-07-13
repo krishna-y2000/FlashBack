@@ -3,8 +3,8 @@ const path = require("path") ;
 const multer = require("multer") ;
 const router = express.Router();
 const mongoose = require('mongoose');
-const GridFsStorage = require('multer-gridfs-storage')
-const MONGOURI = "mongodb+srv://dbKrishna:Kri75676@cluster0-9vtky.mongodb.net/uploaded-files?retryWrites=true&w=majority";
+const {GridFsStorage} = require('multer-gridfs-storage')
+const MONGOURI = process.env.MONGOURI;
 const promise = require('promise');
 var crypto = require('crypto');
 const Article = require("../config/model/article");

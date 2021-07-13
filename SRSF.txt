@@ -1,7 +1,10 @@
 Task :
     • Authentication
     • File upload 
-    • Insert Blog
+    • Blog
+    • Email
+    • NightMode
+    • Chatbot
     • Load Balancing
     • Attendance Details
     • Future Topic  and Past Topic
@@ -9,6 +12,8 @@ Task :
 Done :
     1) Authentication
     2) File Upload
-    3) Insert Blog
-    4) Load Balancing
-    
+    3) Blog - create , read , edit , delete 
+    4) Email
+    5) NightMode
+    6) Chatbot
+    7) Load Balancing

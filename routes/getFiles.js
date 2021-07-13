@@ -6,7 +6,7 @@ const GridFsStorage = require('multer-gridfs-storage')
 const promise = require('promise');
 const multer = require("multer") ;
 const auth = require('../middleware/auth');
-const MONGOURI = "mongodb+srv://dbKrishna:Kri75676@cluster0-9vtky.mongodb.net/uploaded-files?retryWrites=true&w=majority";
+const MONGOURI = process.env.MONGOURI ;
 const conn = mongoose.createConnection(MONGOURI, {useNewUrlParser : true, useUnifiedTopology:true})
 let gfg ;
  conn.once('open', (err,res) => {

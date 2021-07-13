@@ -1,0 +1,21 @@
+1) File Upload using Multer : 
+
+- What is multer ?
+Multer is a node.js middleware for handling multipart/form-data, 
+which is primarily used for uploading files. It is written on top 
+of the busboy( A node.js module for parsing incoming HTML form data.) for maximum efficiency.
+
+- Uploading using Grid-Fs-Storage : 
+GridFS uses two collections to store file data. The default names are fs.files and fs.chunks. 
+The first collection holds the metadata of the file, including name, size, content type etc. 
+The second collection is where the magic happens. The fs.chunks collection holds the actual file,
+which has been broken into chunks, default size 255kb. The chunks are stored as separate documents, that are numbered. 
+The MongoDB driver you are using will assemble these chunks in order, when you want to retrieve the file.
+
+2) Nodemailer : 
+Nodemailer is a single module with zero dependencies for Node.js, designed for sending emails.
+It uses SMTP protocol to send the mails .
+Follow are steps to send the mail :
+    a) Create a Transporter object
+    b) Create a MailOptions Object
+    c) Use the Transporter.sendMail method to send the mail

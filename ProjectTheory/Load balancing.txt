@@ -1,0 +1,24 @@
+- What is load balancing ? 
+Load balancing is an approach to distribute and allocate traffic of website to multiple application servers.
+The load balancer stays in between the client and application servers and decides on which server this request should go.
+The decision can be configured using different algorithms.By default it uses Round-robin algorithm .
+
+
+Code written in conf.d file in nginx :
+
+upstream app_servers {
+    server 127.0.0.1:3000;
+    server 127.0.0.1:3001;
+    server 127.0.0.1:3002;
+    server 127.0.0.1:3002;
+}
+
+server {
+    listen 80;
+    server_name your-domain.com www.your-domain.com;    // Eg : server localhost ;
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://app_servers;
+    }
+}

@@ -147,7 +147,7 @@ router.post('/login',auth ,[check("email", "Please enter a valid email").isEmail
                  id: user.id
                 }
              };
-             jwt.sign(payload,"randomString", (err,token) =>
+             jwt.sign( payload,"randomString", (err,token) =>
               {
                  if(err)
                    {
