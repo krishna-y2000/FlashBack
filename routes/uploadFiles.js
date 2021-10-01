@@ -96,7 +96,7 @@ router.get('/',auth ,(req,res) => {
 } );
 
 router.post('/uploadedFiles',upload.single('file'), (req,res) => {
-   return res.redirect(301 , 'http://localhost:3000/getfiles');
+    return res.redirect('/');
     
 } )
 
@@ -155,7 +155,7 @@ router.put('/update/:id',async (req,res,next)=> {
 },saveArticleAndRedirect('new-article') )
 
 router.get('/edit/:id',auth ,async (req,res) => {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     const article = await Article.findById(req.params.id)
      res.render('../views/articles/update.ejs', {article : article , isAuthenticated : req.user ? true : false})
 
@@ -163,7 +163,7 @@ router.get('/edit/:id',auth ,async (req,res) => {
 
 router.delete("/delete/:id", async(req,res) => {
     await Article.findByIdAndDelete(req.params.id);
-     res.redirect("/uploads/articles");
+     return res.redirect("/uploads/articles");
 })
 
 router.get("/articles/delete",async (req,res) => {
