@@ -7,7 +7,8 @@ There are mainly to ways by which server can identify client and process request
 𝟏. 𝐒𝐞𝐬𝐬𝐢𝐨𝐧 𝐈𝐝 - Session id is stored on the server side so that whenever client make a req server checks session id and process request.
 
 𝐏𝐫𝐨𝐛𝐥𝐞𝐦 𝐰𝐢𝐭𝐡 𝐒𝐞𝐬𝐬𝐢𝐨𝐧 𝐈𝐝
-In modern web apps There can be multiple servers present. Session id will only be stored on that server and if clients request has went to another server it does not identify client.
+In modern web apps There can be multiple servers present. Session id will only be stored on that server and if clients request has 
+went to another server it does not identify client.
 
 𝟐. 𝐇𝐨𝐰 𝐉𝐖𝐓 𝐒𝐨𝐥𝐯𝐞𝐬 𝐭𝐡𝐢𝐬 𝐩𝐫𝐨𝐛𝐥𝐞𝐦 ?
 In JWT authentication Session is not stored on server side.

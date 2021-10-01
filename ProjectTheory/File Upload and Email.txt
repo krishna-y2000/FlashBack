@@ -1,7 +1,8 @@
 1) File Upload using Multer : 
 
 - What is multer ?
-Multer is a node.js middleware for handling multipart/form-data, 
+Multer is a node.js middleware for handling multipart/form-data( mostly this encoding method should be used during file upload otherwise 
+similar like application/x-www-form-urlencoded ), 
 which is primarily used for uploading files. It is written on top 
 of the busboy( A node.js module for parsing incoming HTML form data.) for maximum efficiency.
 

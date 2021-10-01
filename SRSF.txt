@@ -10,10 +10,10 @@ Task :
     • Future Topic  and Past Topic
 
 Done :
-    1) Authentication
+    1) Authentication                       
     2) File Upload
     3) Blog - create , read , edit , delete 
-    4) Email
+    4) Email - Nodemailer 
     5) NightMode
     6) Chatbot
-    7) Load Balancing
+    7) Load Balancing - NGINX

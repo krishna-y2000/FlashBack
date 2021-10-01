@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
-var bodyParser = require("body-parser");
 var app = express();
 var methodOverride = require('method-override');
 const PORT = process.env.PORT||3000;
@@ -15,7 +14,6 @@ app.locals.moment = require("moment");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -34,6 +32,6 @@ if(!PORT)
 {
   console.log("PORT not found");
 }
-app.listen(PORT,"0.0.0.0" , () => console.log(`Server at ${PORT}`)); 
+app.listen(PORT, () => console.log(`Server at ${PORT}`)); 
 
 module.exports = app;

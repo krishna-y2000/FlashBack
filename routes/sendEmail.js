@@ -30,15 +30,15 @@ router.post("/sendEmail" ,async (req,res) => {
       text: req.body.paramessage ,
       attachments : [ {
         filename: 'mytext.txt',
-         content: fs.createReadStream('/home/krishnaraj/Desktop/ME-Original (copy)/SRSF.txt')
+         content: fs.createReadStream('/home/krishna2000/Study/Web/Vishesh/SRSF.txt')
       },
         {
-            path : '/home/krishnaraj/Desktop/ME-Original (copy)/SRSF.txt'
+            path : '/home/krishna2000/Study/Web/Vishesh/SRSF.txt'
         }
       ]
     }
     
-
+    
  let info =  await transporter.sendMail(mailOptions , (error , response )=> {
         if(error)
         {

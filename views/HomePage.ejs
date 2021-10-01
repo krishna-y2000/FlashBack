@@ -5,6 +5,7 @@
   <h1><%= title %></h1>
   <button type ="button" onclick="location.href = '/uploads'" value = "uploadFile">uploadFile</button> 
   <button type ="button" onclick="location.href = '/getfiles'" value = "getFiles">getFile</button>
+  <button type ="button" onclick="location.href = '/sendEmail/newEmail'" value = "sendEmail">sendEmail</button>
   <% if(isAuthenticated) {%>
     <button type = "button" onclick="location.href = '/uploads/articles'" value = "articles" > Articles </button>
   <% } %>
