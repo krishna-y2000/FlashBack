@@ -116,7 +116,7 @@ router.get('/image/:filename', (req,res) => {
 router.post("/files/del/:id", (req, res) => {
         gfg.delete(new mongoose.Types.ObjectId(req.params.id), (err, data) => {
           if (err) return res.status(404).json({ err: err.message });
-          res.redirect("/uploads");
+          res.redirect("/getfiles");
         });
       });
  router.post("/files/download/:filename", (req, res) => {
