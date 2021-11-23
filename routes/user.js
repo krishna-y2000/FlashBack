@@ -15,7 +15,7 @@ router.get('/login',auth , function(req,res,next) {
   var titleLogin = "Login Page"
   res.render("../views/authentication/login.ejs",{title : titleLogin , error : '' })
 } )
-router.post('/signup',auth , [check("username","Enter valid username").not().isEmpty(),
+router.post('/signup',[check("username","Enter valid username").not().isEmpty(),
        check("email","Please enter valid email-id").isEmail(),
        check("password","Enter valid password").isLength({min:8}) ],
           async (req,res,next) =>{
@@ -74,7 +74,7 @@ router.post('/signup',auth , [check("username","Enter valid username").not().isE
                 })
                 
                  
-                 user.save( (req,res) => { console.log("Saved ");} );
+                 await user.save( (req,res) => { console.log("Saved ");} );
                   
               });
               
@@ -109,7 +109,7 @@ router.post('/signup',auth , [check("username","Enter valid username").not().isE
 
 
 
-router.post('/login',auth ,[check("email", "Please enter a valid email").isEmail(),
+router.post('/login',[check("email", "Please enter a valid email").isEmail(),
        check("password", "Please enter a valid password").isLength({
          min: 6
        })  ],
