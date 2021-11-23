@@ -11,7 +11,7 @@ router.get('/signup', function(req, res, next) {
   var titleSignup = "MY REGISTRATION PAGE"
   res.render("../views/authentication/signup.ejs",{title : titleSignup , error : ''});
 });
-router.get('/login',auth , function(req,res,next) {
+router.get('/login', function(req,res,next) {
   var titleLogin = "Login Page"
   res.render("../views/authentication/login.ejs",{title : titleLogin , error : '' })
 } )
